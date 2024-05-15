@@ -10,7 +10,8 @@ def handler(event, context):
     )
     conn = engine.connect()
     with open("warehouse.sql", "r") as fp:
-        conn.execute(fp.read())
+        for query in fp.read().split(";"):
+            conn.execute(text(query.strip("\n\t\r ")))
     conn.close()
     engine.dispose()
     return "success"
