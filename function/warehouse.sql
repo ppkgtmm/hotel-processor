@@ -78,3 +78,5 @@ CREATE TABLE fct_amenities (
     FOREIGN KEY (roomtype) REFERENCES dim_roomtype(id),
     FOREIGN KEY (addon) REFERENCES dim_addon(id)
 );
+
+CREATE SCHEMA staging;
