@@ -84,14 +84,16 @@ CREATE SCHEMA staging;
 CREATE TABLE staging.room (
     id INT,
     roomtype INT,
-    updated_at TIMESTAMP
+    updated_at TIMESTAMP,
+    is_deleted BOOLEAN
 );
 
 CREATE TABLE staging.booking (
     id INT,
     checkin DATE,
     checkout DATE,
-    updated_at TIMESTAMP
+    updated_at TIMESTAMP,
+    is_deleted BOOLEAN
 );
 
 CREATE TABLE staging.booking_room (
@@ -99,7 +101,8 @@ CREATE TABLE staging.booking_room (
     booking INT,
     room INT,
     guest INT,
-    updated_at TIMESTAMP
+    updated_at TIMESTAMP,
+    is_deleted BOOLEAN
 );
 
 CREATE TABLE staging.booking_addon (
@@ -108,5 +111,6 @@ CREATE TABLE staging.booking_addon (
     addon INT,
     quantity INT,
     timestamp TIMESTAMP,
-    updated_at TIMESTAMP
+    updated_at TIMESTAMP,
+    is_deleted BOOLEAN
 );
