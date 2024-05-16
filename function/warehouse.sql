@@ -80,3 +80,33 @@ CREATE TABLE fct_amenities (
 );
 
 CREATE SCHEMA staging;
+
+CREATE TABLE staging.room (
+    id INT,
+    roomtype INT,
+    updated_at TIMESTAMP
+);
+
+CREATE TABLE staging.booking (
+    id INT,
+    checkin DATE,
+    checkout DATE,
+    updated_at TIMESTAMP
+);
+
+CREATE TABLE staging.booking_room (
+    id INT,
+    booking INT,
+    room INT,
+    guest INT,
+    updated_at TIMESTAMP
+);
+
+CREATE TABLE staging.booking_addon (
+    id INT,
+    booking_room INT,
+    addon INT,
+    quantity INT,
+    timestamp TIMESTAMP,
+    updated_at TIMESTAMP
+);
