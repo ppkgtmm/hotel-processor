@@ -1,4 +1,4 @@
-name: deploy function to s3
+name: deploy function to gcs
 on:
   push:
     branches:
@@ -10,32 +10,18 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    env:
-      BUCKET_NAME : ${{ secrets.account_id }}-hotel-bucket
-      AWS_REGION : ap-south-1
 
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: setup python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
       - name: create archive
-        run: |
-          python -m pip install --upgrade pip
-          mkdir package
-          pip install --target ./package -r requirements.txt
-          cd package
-          zip -r ../hotel-processor.zip .
-          cd ../
-          cd function
-          zip -ur ../hotel-processor.zip .
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        run: zip -r hotel-processor.zip .
+      - name: gcloud auth
+        uses: google-github-actions/auth@v2
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.account_id }}:role/github-action-s3
-          aws-region: ${{ env.AWS_REGION }}
-      - name: deploy function archive to s3
-        run: aws s3 cp hotel-processor.zip s3://${{ env.BUCKET_NAME }}/
+          workload_identity_provider: projects/${{ secrets.project_id }}/locations/global/workloadIdentityPools/github/providers/hotel-connector
+      - name: set up gcloud sdk
+        uses: google-github-actions/setup-gcloud@v2
+      - name: copy archive
+        run: gcloud storage cp hotel-processor.zip gs://${{ secrets.project_id }}-cloud-functions/
