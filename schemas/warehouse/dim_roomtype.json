@@ -1,0 +1,26 @@
+[
+    {
+        "name": "id",
+        "type": "INT"
+    },
+    {
+        "name": "_id",
+        "type": "INT"
+    },
+    {
+        "name": "name",
+        "type": "STRING"
+    },
+    {
+        "name": "price",
+        "type": "FLOAT64"
+    },
+    {
+        "name": "effective_from",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "effective_until",
+        "type": "TIMESTAMP"
+    }
+]

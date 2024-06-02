@@ -1,0 +1,26 @@
+[
+    {
+        "name": "id",
+        "type": "INT"
+    },
+    {
+        "name": "booking",
+        "type": "INT"
+    },
+    {
+        "name": "room",
+        "type": "INT"
+    },
+    {
+        "name": "guest",
+        "type": "INT"
+    },
+    {
+        "name": "updated_at",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "is_deleted",
+        "type": "BOOL"
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "id",
+        "type": "INT"
+    },
+    {
+        "name": "checkin",
+        "type": "DATE"
+    },
+    {
+        "name": "checkout",
+        "type": "DATE"
+    },
+    {
+        "name": "updated_at",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "is_deleted",
+        "type": "BOOL"
+    }
+]

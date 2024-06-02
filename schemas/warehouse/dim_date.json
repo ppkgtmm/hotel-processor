@@ -1,0 +1,22 @@
+[
+    {
+        "name": "id",
+        "type": "INT"
+    },
+    {
+        "name": "date",
+        "type": "DATE"
+    },
+    {
+        "name": "month",
+        "type": "INT"
+    },
+    {
+        "name": "quarter",
+        "type": "INT"
+    },
+    {
+        "name": "year",
+        "type": "INT"
+    }
+]

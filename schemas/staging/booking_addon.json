@@ -1,0 +1,30 @@
+[
+    {
+        "name": "id",
+        "type": "INT"
+    },
+    {
+        "name": "booking_room",
+        "type": "INT"
+    },
+    {
+        "name": "addon",
+        "type": "INT"
+    },
+    {
+        "name": "quantity",
+        "type": "INT"
+    },
+    {
+        "name": "timestamp",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "updated_at",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "is_deleted",
+        "type": "BOOL"
+    }
+]

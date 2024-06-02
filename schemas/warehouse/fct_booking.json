@@ -1,0 +1,22 @@
+[
+    {
+        "name": "id",
+        "type": "INT"
+    },
+    {
+        "name": "date",
+        "type": "INT"
+    },
+    {
+        "name": "guest",
+        "type": "INT"
+    },
+    {
+        "name": "guest_location",
+        "type": "INT"
+    },
+    {
+        "name": "roomtype",
+        "type": "INT"
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "name": "id",
+        "type": "INT"
+    },
+    {
+        "name": "_id",
+        "type": "INT"
+    },
+    {
+        "name": "email",
+        "type": "STRING"
+    },
+    {
+        "name": "dob",
+        "type": "DATE"
+    },
+    {
+        "name": "gender",
+        "type": "STRING"
+    },
+    {
+        "name": "effective_from",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "effective_until",
+        "type": "TIMESTAMP"
+    }
+]
