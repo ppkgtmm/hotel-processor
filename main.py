@@ -16,7 +16,7 @@ def prepare_bq_storage(dataset_name: str, schema_dir: str):
         bq_client.create_table(table)
 
 
-def prepare_and_submit(request):
+def prepare_and_process(request):
     prepare_bq_storage("staging", "schemas/staging")
     prepare_bq_storage("warehouse", "schemas/warehouse")
     return "success"
