@@ -18,5 +18,9 @@
     {
         "name": "is_deleted",
         "type": "BOOL"
+    },
+    {
+        "name": "date_processed",
+        "type": "TIMESTAMP"
     }
 ]
