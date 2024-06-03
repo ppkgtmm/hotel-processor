@@ -10,9 +10,5 @@
     {
         "name": "updated_at",
         "type": "TIMESTAMP"
-    },
-    {
-        "name": "is_deleted",
-        "type": "BOOL"
     }
 ]
