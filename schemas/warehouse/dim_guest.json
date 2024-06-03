@@ -1,11 +1,11 @@
 [
     {
         "name": "id",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "_id",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "email",

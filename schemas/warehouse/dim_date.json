@@ -1,7 +1,7 @@
 [
     {
         "name": "id",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "date",
@@ -9,14 +9,14 @@
     },
     {
         "name": "month",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "quarter",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "year",
-        "type": "INT"
+        "type": "INT64"
     }
 ]

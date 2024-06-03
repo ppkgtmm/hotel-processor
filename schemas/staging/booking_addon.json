@@ -1,19 +1,19 @@
 [
     {
         "name": "id",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "booking_room",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "addon",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "quantity",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "timestamp",

@@ -1,18 +1,18 @@
 [
     {
         "name": "id",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "hour",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "minute",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "second",
-        "type": "INT"
+        "type": "INT64"
     }
 ]

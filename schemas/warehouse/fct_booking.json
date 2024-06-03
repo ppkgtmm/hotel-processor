@@ -1,22 +1,22 @@
 [
     {
         "name": "id",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "date",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "guest",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "guest_location",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "roomtype",
-        "type": "INT"
+        "type": "INT64"
     }
 ]

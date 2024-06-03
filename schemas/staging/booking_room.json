@@ -1,19 +1,19 @@
 [
     {
         "name": "id",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "booking",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "room",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "guest",
-        "type": "INT"
+        "type": "INT64"
     },
     {
         "name": "updated_at",
