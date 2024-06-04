@@ -25,11 +25,13 @@ def prepare_bq_storage(dataset_name: str, schema_dir: str):
 def schedule_sql_query(folder_path: str, schedule_interval: str):
     service_account = getenv("SERVICE_ACCOUNT")
     transfer_client = DataTransferServiceClient()
+    parent = f"projects/{getenv("GCP_PROJECT_ID")}/locations/{getenv("GCP_REGION")}"
 
     for file_name in listdir(folder_path):
         with open(path.join(folder_path, file_name), "r") as fp:
             query_string = fp.read()
         transfer_config = TransferConfig(
+            name=f"projects/{getenv("GCP_PROJECT_ID")}/locations/{getenv("GCP_REGION")}/transferConfigs",
             display_name=file_name + "_query",
             data_source_id="scheduled_query",
             params={"query": query_string},
@@ -37,7 +39,7 @@ def schedule_sql_query(folder_path: str, schedule_interval: str):
         )
         transfer_config = transfer_client.create_transfer_config(
             CreateTransferConfigRequest(
-                parent=f"{getenv("GCP_PROJECT_ID")}/locations/us",
+                parent=parent,
                 transfer_config=transfer_config,
                 service_account_name=service_account,
             )
