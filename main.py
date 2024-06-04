@@ -64,8 +64,6 @@ def submit_streaming_job():
     ]
     pyspark_job.properties = {
         "dataproc:pip.packages": "db-dtypes==1.2.0,google-cloud-bigquery==3.23.1,pandas==2.2.2",
-        "spark.pyspark.python": "python3.12",
-        "spark.pyspark.driver.python": "python3.12",
         "spark:spark.submit.deployMode": "cluster",
         "spark.yarn.appMasterEnv.GCP_PROJECT": getenv("GCP_PROJECT_ID"),
         "spark.yarn.appMasterEnv.GCP_ZONE": getenv("GCP_ZONE"),
