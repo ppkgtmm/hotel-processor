@@ -80,4 +80,4 @@ USING (
     GROUP BY 1
 ) fb
 ON br.id = fb.id
-WHEN MATCHED THEN UPDATE SET processed = true;
+WHEN MATCHED THEN UPDATE SET date_processed = CURRENT_DATE();
