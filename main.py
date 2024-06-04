@@ -6,6 +6,7 @@ from google.cloud.bigquery_datatransfer import (
     CreateTransferConfigRequest,
 )
 
+from google.cloud.dataproc import JobControllerClient, Job, PySparkJob, JobPlacement
 
 def prepare_bq_storage(dataset_name: str, schema_dir: str):
     bq_client = Client()
