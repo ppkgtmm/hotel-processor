@@ -61,13 +61,13 @@ CREATE TEMPORARY TABLE fact_booking AS
     )
 
 SELECT 
-    b.id,
-    CAST(FORMAT_DATE('%Y%m%d', b.date) AS INT64) AS date,
-    b.guest,
-    b.guest_location,
-    b.roomtype
-FROM enriched_bookings b
-WHERE b.guest_location IS NOT NULL AND b.roomtype IS NOT NULL;
+    id,
+    CAST(FORMAT_DATE('%Y%m%d', date) AS INT64) AS date,
+    guest,
+    guest_location,
+    roomtype
+FROM enriched_bookings
+WHERE guest_location IS NOT NULL AND roomtype IS NOT NULL;
 
 INSERT INTO warehouse.fct_booking (date, guest, guest_location, roomtype)
 SELECT date, guest, guest_location, roomtype
