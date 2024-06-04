@@ -73,7 +73,7 @@ INSERT INTO warehouse.fct_booking (date, guest, guest_location, roomtype)
 SELECT date, guest, guest_location, roomtype
 FROM fact_booking;
 
-MERGE INTO staging.booking_rooms br
+MERGE INTO staging.booking_room br
 USING (
     SELECT id
     FROM fact_bookings
