@@ -35,13 +35,13 @@ def schedule_sql_query(folder_path: str, schedule_interval: str):
             params={"query": query_string},
             schedule=schedule_interval,
         )
-    transfer_config = transfer_client.create_transfer_config(
-        CreateTransferConfigRequest(
-            parent=parent,
-            transfer_config=transfer_config,
-            service_account_name=service_account,
+        transfer_config = transfer_client.create_transfer_config(
+            CreateTransferConfigRequest(
+                parent=parent,
+                transfer_config=transfer_config,
+                service_account_name=service_account,
+            )
         )
-    )
 
 
 def prepare_and_process(request):
