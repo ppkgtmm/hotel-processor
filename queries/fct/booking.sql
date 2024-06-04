@@ -48,12 +48,12 @@ CREATE TEMPORARY TABLE fact_booking AS
                 SELECT MAX(id)
                 FROM warehouse.dim_location
                 WHERE _id = b.guest_location AND effective_from <= b.updated_at
-            ) guest_location,
+            ) AS guest_location,
             (
                 SELECT MAX(id)
                 FROM warehouse.dim_roomtype
                 WHERE _id = b.roomtype AND effective_from <= b.updated_at
-            ) roomtype,
+            ) AS roomtype,
             date
         FROM bookings b,
         UNNEST(GENERATE_DATE_ARRAY(b.checkin, b.checkout)) AS date
@@ -62,7 +62,7 @@ CREATE TEMPORARY TABLE fact_booking AS
 
 SELECT 
     b.id,
-    CAST(FORMAT_DATE('%Y%m%d', b.date) AS INT64) date,
+    CAST(FORMAT_DATE('%Y%m%d', b.date) AS INT64) AS date,
     b.guest,
     b.guest_location,
     b.roomtype
