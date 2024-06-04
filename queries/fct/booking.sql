@@ -13,7 +13,7 @@ CREATE TEMPORARY TABLE fact_booking AS
         WHERE br.is_deleted = false 
         AND br.date_processed IS NULL 
         AND b.is_deleted = false 
-        AND DATE_DIFF(b.checkin, DATE_ADD(@run_date, INTERVAL 1 DAY), DAY) < 7
+        AND DATE_DIFF(b.checkin, DATE_ADD(DATE(@run_time), INTERVAL 1 DAY), DAY) < 7
     ), bookings AS (
         SELECT
             b.id,
