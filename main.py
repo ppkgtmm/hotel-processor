@@ -32,9 +32,7 @@ def schedule_sql_query(folder_path: str, schedule_interval: str):
         transfer_config = TransferConfig(
             display_name=file_name + "_query",
             data_source_id="scheduled_query",
-            params={
-                "query": query_string,
-            },
+            params={"query": query_string},
             schedule=schedule_interval,
         )
     transfer_config = transfer_client.create_transfer_config(
