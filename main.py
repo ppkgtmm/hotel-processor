@@ -46,6 +46,19 @@ def schedule_sql_query(folder_path: str, schedule_interval: str):
         )
 
 
+def populate_time_dimension():
+    hours, mins = list(range(0, 24)), [0, 30]
+    data = []
+    for hour in hours:
+        for minute in mins:
+            data.append(
+                dict(
+                    id=int(f"{hour}{minute:02d}00"), hour=hour, minute=minute, second=0
+                )
+            )
+    Client().load_table_from_json(data, "warehouse.dim_time").result()
+
+
 def submit_streaming_job():
     job_client = JobControllerClient(
         client_options={
@@ -83,6 +96,7 @@ def submit_streaming_job():
 def prepare_and_process(request):
     prepare_bq_storage("staging", "schemas/staging")
     prepare_bq_storage("warehouse", "schemas/warehouse")
+    populate_time_dimension()
     schedule_sql_query("queries/warehouse", "every day 00:00")
     schedule_sql_query("queries/staging", "every day 01:00")
     submit_streaming_job()
