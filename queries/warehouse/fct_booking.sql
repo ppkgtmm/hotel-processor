@@ -66,7 +66,7 @@ FROM fact_booking;
 MERGE INTO staging.booking_room br
 USING (
     SELECT id
-    FROM fact_bookings
+    FROM fact_booking
     GROUP BY 1
 ) fb
 ON br.id = fb.id
