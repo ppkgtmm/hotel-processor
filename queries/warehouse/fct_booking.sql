@@ -37,7 +37,6 @@ CREATE TEMPORARY TABLE fact_booking AS
             b.id,
             b.checkin,
             b.checkout,
-            b.updated_at,
             g.id AS guest,
             l.id AS guest_location,
             t.id AS roomtype
@@ -46,7 +45,7 @@ CREATE TEMPORARY TABLE fact_booking AS
         JOIN dim_roomtype t ON b.id = t.booking
     ), enriched_bookings AS (
         SELECT
-            b.* EXCEPT(checkin, checkout, updated_at),
+            b.* EXCEPT(checkin, checkout),
             date
         FROM bookings b,
         UNNEST(GENERATE_DATE_ARRAY(b.checkin, b.checkout)) AS date
