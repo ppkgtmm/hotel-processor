@@ -16,7 +16,7 @@
         "type": "INT64"
     },
     {
-        "name": "timestamp",
+        "name": "datetime",
         "type": "TIMESTAMP"
     },
     {
