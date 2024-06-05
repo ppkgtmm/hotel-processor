@@ -62,15 +62,14 @@ def submit_streaming_job():
         "gs://spark-lib/pubsublite/pubsublite-spark-sql-streaming-LATEST-with-dependencies.jar",
         "gs://hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar",
     ]
+    pyspark_job.args = [
+        getenv("GCP_PROJECT_ID"),
+        getenv("GCP_ZONE"),
+        getenv("BUCKET_NAME"),
+    ]
     pyspark_job.properties = {
         "dataproc:pip.packages": "db-dtypes==1.2.0,google-cloud-bigquery==3.23.1,pandas==2.2.2",
         "spark:spark.submit.deployMode": "cluster",
-        "spark.yarn.appMasterEnv.GCP_PROJECT": getenv("GCP_PROJECT_ID"),
-        "spark.yarn.appMasterEnv.GCP_ZONE": getenv("GCP_ZONE"),
-        "spark.yarn.appMasterEnv.GCS_BUCKET": getenv("BUCKET_NAME"),
-        "spark.executorEnv.GCP_PROJECT": getenv("GCP_PROJECT_ID"),
-        "spark.executorEnv.GCP_ZONE": getenv("GCP_ZONE"),
-        "spark.executorEnv.GCS_BUCKET": getenv("BUCKET_NAME"),
     }
     job = Job()
     job.placement = JobPlacement(cluster_name=getenv("CLUSTER_NAME"))
