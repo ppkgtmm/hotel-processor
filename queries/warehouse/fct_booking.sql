@@ -58,7 +58,7 @@ SELECT
     guest,
     guest_location,
     roomtype
-FROM enriched_bookings
+FROM enriched_bookings;
 
 INSERT INTO warehouse.fct_booking (date, guest, guest_location, roomtype)
 SELECT date, guest, guest_location, roomtype
