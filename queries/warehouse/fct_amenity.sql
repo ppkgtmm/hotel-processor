@@ -7,7 +7,7 @@ CREATE TEMPORARY TABLE fact_amenities AS
             ba.quantity,
             br.guest,
             br.room,
-            a.updated_at
+            ba.updated_at
         FROM staging.booking_addon ba JOIN staging.booking_room br ON ba.booking_room = br.id
         JOIN staging.booking b ON br.booking = b.id
         WHERE ba.is_deleted = false
