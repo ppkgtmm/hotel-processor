@@ -39,55 +39,19 @@ CREATE TEMPORARY TABLE fact_amenities AS
         SELECT a.id AS booking_addon, MAX(da.id) AS id
         FROM raw_amenities a JOIN warehouse.dim_addon da ON da._id = a.addon AND da.effective_from <= a.updated_at
         GROUP BY booking_addon
-    ), amenities AS (
-        SELECT
-            a.id,
-            a.datetime,
-            (
-                SELECT MAX(id)
-                FROM warehouse.dim_guest
-                WHERE _id = a.guest AND effective_from <= a.updated_at
-            ) AS guest,
-            (
-                SELECT g.location
-                FROM staging.guest g
-                WHERE g.id = a.guest AND g.updated_at <= a.updated_at
-                ORDER BY g.updated_at DESC
-                LIMIT 1
-            ) AS guest_location,
-            (
-                SELECT roomtype
-                FROM staging.room r
-                WHERE r.id = a.room AND r.updated_at <= a.updated_at
-                ORDER BY r.updated_at DESC
-                LIMIT 1
-            ) AS roomtype,
-            (
-                SELECT MAX(id)
-                FROM warehouse.dim_addon
-                WHERE _id = a.addon AND effective_from <= a.updated_at
-            ) AS addon,
-            a.quantity
-        FROM raw_amenities a
     ), enriched_amenities AS (
         SELECT
             a.id,
             a.datetime,
-            a.guest,
-            a.addon,
-            a.quantity,
-            (
-                SELECT MAX(id)
-                FROM warehouse.dim_location
-                WHERE _id = a.guest_location AND effective_from <= a.updated_at
-            ) AS guest_location,
-            (
-                SELECT MAX(id)
-                FROM warehouse.dim_roomtype
-                WHERE _id = a.roomtype AND effective_from <= a.updated_at
-            ) AS roomtype
-        FROM amenities a
-        WHERE a.guest IS NOT NULL AND a.guest_location IS NOT NULL AND a.roomtype IS NOT NULL AND a.addon IS NOT NULL
+            g.id AS guest,
+            l.id AS guest_location,
+            t.id AS roomtype,
+            ad.id AS addon,
+            a.quantity
+        FROM raw_amenities a JOIN dim_guest g ON a.id = g.booking_addon
+        JOIN dim_location l ON a.id = l.booking_addon
+        JOIN dim_roomtype t ON a.id = t.booking_addon
+        JOIN dim_addon ad ON a.id = ad.booking_addon
     )
 SELECT
     id,
@@ -98,8 +62,7 @@ SELECT
     roomtype,
     addon,
     quantity AS addon_quantity
-FROM enriched_amenities
-WHERE guest_location IS NOT NULL AND roomtype IS NOT NULL;
+FROM enriched_amenities;
 
 INSERT INTO warehouse.fct_amenity (date, time, guest, guest_location, roomtype, addon, addon_quantity)
 SELECT date, time, guest, guest_location, roomtype, addon, addon_quantity
