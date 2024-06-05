@@ -15,6 +15,30 @@ CREATE TEMPORARY TABLE fact_amenities AS
         AND br.is_deleted = false
         AND b.is_deleted = false
         AND DATE_DIFF(b.checkin, DATE_ADD(DATE(@run_time), INTERVAL 1 DAY), DAY) < 7
+    ),  dim_guest AS (
+        SELECT a.id AS booking_addon, MAX(g.id) AS id
+        FROM raw_amenities a JOIN warehouse.dim_guest g ON g._id = a.guest AND g.effective_from <= a.updated_at
+        GROUP BY booking_addon
+    ), guest_location AS (
+        SELECT a.id AS booking_addon, a.updated_at, ARRAY_AGG(g.location ORDER BY g.updated_at DESC LIMIT 1)[SAFE_OFFSET(0)] AS location
+        FROM raw_amenities a JOIN staging.guest g ON g.id = a.guest AND g.updated_at <= a.updated_at
+        GROUP BY booking_addon, a.updated_at
+    ), dim_location AS (
+        SELECT booking_addon, MAX(l.id) AS id
+        FROM guest_location a JOIN warehouse.dim_location l ON l._id = a.location AND l.effective_from <= a.updated_at
+        GROUP BY booking_addon
+    ), roomtype AS (
+        SELECT a.id AS booking_addon, a.updated_at, ARRAY_AGG(r.roomtype ORDER BY r.updated_at DESC LIMIT 1)[SAFE_OFFSET(0)] AS roomtype
+        FROM raw_amenities a JOIN staging.room r ON r.id = a.room AND r.updated_at <= a.updated_at
+        GROUP BY booking_addon, a.updated_at
+    ), dim_roomtype AS (
+        SELECT booking_addon, MAX(t.id) AS id
+        FROM roomtype a JOIN warehouse.dim_roomtype t ON t._id = a.roomtype AND t.effective_from <= a.updated_at
+        GROUP BY booking_addon
+    ),  dim_addon AS (
+        SELECT a.id AS booking_addon, MAX(da.id) AS id
+        FROM raw_amenities a JOIN warehouse.dim_addon da ON da._id = a.addon AND da.effective_from <= a.updated_at
+        GROUP BY booking_addon
     ), amenities AS (
         SELECT
             a.id,
