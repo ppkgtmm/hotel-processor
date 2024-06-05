@@ -25,10 +25,24 @@ WHEN NOT MATCHED BY SOURCE THEN DELETE;
 
 DELETE FROM staging.booking WHERE is_deleted = true;
 
-DELETE
-FROM staging.guest
-QUALIFY ROW_NUMBER() OVER(PARTITION BY id ORDER BY updated_at DESC) <= 3;
+DELETE FROM staging.guest t
+WHERE EXISTS (
+  SELECT 1
+  FROM (
+    SELECT id, updated_at
+    FROM staging.guest
+    QUALIFY ROW_NUMBER() OVER(PARTITION BY id ORDER BY updated_at DESC) = 3
+  ) s
+  WHERE t.id = s.id AND t.updated_at < s.updated_at 
+);
 
-DELETE
-FROM staging.room
-QUALIFY ROW_NUMBER() OVER(PARTITION BY id ORDER BY updated_at DESC) <= 3;
+DELETE FROM staging.room t
+WHERE EXISTS (
+  SELECT 1
+  FROM (
+    SELECT id, updated_at
+    FROM staging.room
+    QUALIFY ROW_NUMBER() OVER(PARTITION BY id ORDER BY updated_at DESC) = 3
+  ) s
+  WHERE t.id = s.id AND t.updated_at < s.updated_at 
+);
